@@ -139,8 +139,8 @@ MonoBehaviour:
   movementSettings:
     speed: 0.001
     groundedDistance: 1.1
-    gravityAccel: 9.81
-    jumpSpeed: 10
+    gravityAccel: 51
+    jumpSpeed: 19.5
     downAccel: 0
   movement:
     movementSpeed: 0
