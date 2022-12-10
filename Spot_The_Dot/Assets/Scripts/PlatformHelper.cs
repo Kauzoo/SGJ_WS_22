@@ -13,6 +13,8 @@ public class PlatformHelper : MonoBehaviour
     [SerializeField]
     private float speed;
     [SerializeField] private int iter;
+    [SerializeField] private bool toggleAlwaysRay;
+    [SerializeField] private bool toggleSelectedRay;
 
     private Vector3 pos;
     private Vector3 scale;
@@ -46,6 +48,7 @@ public class PlatformHelper : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if(!toggleAlwaysRay) return;
         var topRightCorner = pos + (scale / 2);
         /*var bottomRightCorner = new Vector3(pos.x + scale.x, pos.y - scale.y);
         var bottomLeftCorner = pos - scale;
@@ -58,4 +61,17 @@ public class PlatformHelper : MonoBehaviour
             Gizmos.DrawLine(points[i], points[i+1]);
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        if(!toggleSelectedRay) return;
+        var topRightCorner = pos + (scale / 2);
+        Gizmos.color = Color.red;
+        var points = ComputeArc(topRightCorner.x, topRightCorner.y, iter);
+        for (var i = 0; i < points.Length - 1; i++)
+        {
+            Gizmos.DrawLine(points[i], points[i+1]);
+        }
+    }
+    
 }

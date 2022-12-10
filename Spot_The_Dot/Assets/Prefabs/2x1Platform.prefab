@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 4495841812014911536}
   - component: {fileID: 7883947560150011831}
   - component: {fileID: 3593924774508735146}
+  - component: {fileID: -7356849131057870825}
   m_Layer: 0
   m_Name: 2x1Platform
   m_TagString: Untagged
@@ -170,3 +171,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &-7356849131057870825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9060679690588787994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5005bc888c9958e4bb1ddbfa143d366f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gravityAccel: 56
+  jumpSpeed: 16
+  speed: 7
+  iter: 40
+  toggleAlwaysRay: 0
+  toggleSelectedRay: 1
