@@ -63,6 +63,7 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         GetInput();
+        tempBackToStart();
         /*GetInput();
         Grounded();
         Move();
@@ -169,4 +170,18 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
     
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        Debug.Log(DateTime.Now.Date.Millisecond);
+    }
+
+    private void tempBackToStart()
+    {
+        if (Input.GetKey(KeyCode.B))
+        {
+            GameObject aaa = GameObject.Find("Start");
+            transform.position = aaa.transform.position;
+        }
+    }
+
 }
