@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -86,6 +87,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Jump()
     {
+        var timeDiff = 0f;
         // JumpCheck
         if (inputVars.jump && movement is { grounded: true, jumping: false })
         {
@@ -93,6 +95,7 @@ public class PlayerBehaviour : MonoBehaviour
             movement.jumpTimer = 0f;
             movement.jumping = true;
             Debug.Log($"Start: {transform.position.ToString()}");
+            timeDiff = Time.fixedTime;
         }
 
         // Handle Jump
@@ -102,6 +105,8 @@ public class PlayerBehaviour : MonoBehaviour
             {
                 movement.jumping = false;
                 Debug.Log($"End: {transform.position.ToString()}");
+                timeDiff = Time.fixedTime - timeDiff;
+                Debug.Log($"TimeDiff: {timeDiff}");
                 return;
             }
 
@@ -109,7 +114,7 @@ public class PlayerBehaviour : MonoBehaviour
                               (movementSettings.gravityAccel / 2.0f * Mathf.Pow(movement.jumpTimer, 2.0f));
             _playerTransform.transform.position =
                 new Vector3(transform.position.x, newHeight, transform.position.z);
-            movement.jumpTimer += Time.deltaTime;
+            movement.jumpTimer += Time.fixedDeltaTime;
         }
 
         if (movement is { grounded: false, jumping: false, falling: false })
@@ -132,7 +137,7 @@ public class PlayerBehaviour : MonoBehaviour
                               (movementSettings.gravityAccel / 2.0f * Mathf.Pow(movement.jumpTimer, 2.0f));
             _playerTransform.transform.position =
                 new Vector3(transform.position.x, newHeight, transform.position.z);
-            movement.jumpTimer += Time.deltaTime;
+            movement.jumpTimer += Time.fixedDeltaTime;
         }
     }
 
