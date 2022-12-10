@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6392066990522810507}
   - component: {fileID: 5829245944482898972}
   - component: {fileID: 6808178593261102369}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SpotTheDot
   m_TagString: Player
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -30,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 5707159647390098954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.5234482, y: -0.93454015, z: 0.045594536}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -137,15 +137,16 @@ MonoBehaviour:
   inputVars:
     jump: 0
   movementSettings:
-    speed: 0.001
+    speed: 7
     groundedDistance: 1.1
-    gravityAccel: 51
-    jumpSpeed: 19.5
+    gravityAccel: 56
+    jumpSpeed: 16
     downAccel: 0
   movement:
     movementSpeed: 0
     grounded: 0
     jumping: 0
+    falling: 0
     jumpTimer: 0
     jumpPositionHeight: 0
 --- !u!58 &6392066990522810507
