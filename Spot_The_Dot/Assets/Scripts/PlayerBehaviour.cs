@@ -90,6 +90,7 @@ public class PlayerBehaviour : MonoBehaviour
             }
             else
             {
+                /**
                 float upVelocity = movementSettings.jumpSpeed * movement.jumpTimer;
                 float downVelocity = movementSettings.gravityAccel / 2 * Mathf.Pow(movement.jumpTimer, 2.0f);
                 if (upVelocity < downVelocity)
@@ -97,7 +98,8 @@ public class PlayerBehaviour : MonoBehaviour
                     downVelocity = movementSettings.gravityAccel + movementSettings.downAccel / 2 * Mathf.Pow(movement.jumpTimer, 2.0f);
                 }
                 
-                float newHeight = movement.jumpPositionHeight + upVelocity - downVelocity;
+                */
+                float newHeight = movement.jumpPositionHeight + movementSettings.jumpSpeed * movement.jumpTimer - (movementSettings.gravityAccel / 2 * Mathf.Pow(movement.jumpTimer, 2.0f));
                 _playerTransform.transform.position =
                     new Vector3(transform.position.x, newHeight, transform.position.z);
                 movement.jumpTimer += Time.deltaTime;

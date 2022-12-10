@@ -325,10 +325,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1989219189455998527, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
-      propertyPath: movementSettings.downAccel
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2384403387441323529, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
       propertyPath: m_RootOrder
       value: 0
