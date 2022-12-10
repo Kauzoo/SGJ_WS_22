@@ -11,6 +11,7 @@ public class PlayerBehaviour : MonoBehaviour
 {
     private Transform _playerTransform;
     private Rigidbody2D _playerRigidbody;
+    private GameObject _currentCheckPoint;
     
     // Debug
     private float timeDiff = 0f;
@@ -57,6 +58,8 @@ public class PlayerBehaviour : MonoBehaviour
 
         _playerRigidbody.isKinematic = true;
         _playerRigidbody.freezeRotation = true;
+
+        _currentCheckPoint = GameObject.Find("Start");
     }
 
     // Update is called once per frame
@@ -110,7 +113,7 @@ public class PlayerBehaviour : MonoBehaviour
                 movement.jumping = false;
                 //Debug.Log($"End: {transform.position.ToString()}");
                 timeDiff = Time.fixedTime - timeDiff;
-                Debug.Log($"TimeDiff: {timeDiff}");
+                //Debug.Log($"TimeDiff: {timeDiff}");
                 return;
             }
 
@@ -172,15 +175,23 @@ public class PlayerBehaviour : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log(DateTime.Now.Date.Millisecond);
+        if (col.tag.Equals("Hurtbox"))
+        {
+            transform.position = _currentCheckPoint.transform.position - new Vector3 (0,-3,0);
+            return;
+        }
+        if (col.tag.Equals("Checkpoint"))
+        {
+            _currentCheckPoint = col.gameObject;
+        }
+
     }
 
     private void tempBackToStart()
     {
         if (Input.GetKey(KeyCode.B))
         {
-            GameObject aaa = GameObject.Find("Start");
-            transform.position = aaa.transform.position;
+            transform.position =  _currentCheckPoint.transform.position;
         }
     }
 
