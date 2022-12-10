@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6392066990522810507}
   - component: {fileID: 5829245944482898972}
   - component: {fileID: 6808178593261102369}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SpotTheDot
   m_TagString: Player
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -137,10 +137,10 @@ MonoBehaviour:
   inputVars:
     jump: 0
   movementSettings:
-    speed: 0.001
+    speed: 7
     groundedDistance: 1.1
-    gravityAccel: 51
-    jumpSpeed: 19.5
+    gravityAccel: 56
+    jumpSpeed: 16
     downAccel: 0
   movement:
     movementSpeed: 0
