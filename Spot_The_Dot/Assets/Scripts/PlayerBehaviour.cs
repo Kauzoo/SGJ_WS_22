@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,6 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
         public float movementSpeed;
         public bool grounded;
         public bool jumping;
+        public bool falling;
         public float jumpTimer;
         public float jumpPositionHeight;
     }
@@ -57,66 +59,106 @@ public class PlayerBehaviour : MonoBehaviour
     void Update()
     {
         GetInput();
+        /*GetInput();
         Grounded();
+        Move();
+        Jump();*/
+    }
+
+    private void FixedUpdate()
+    {
+        //GetInput();
+        Grounded();
+        Ceilinged();
         Move();
         Jump();
     }
 
     private void GetInput()
     {
-        inputVars.jump = Input.GetKeyDown(KeyCode.Space);
+        inputVars.jump = Input.GetKey(KeyCode.Space);
     }
 
     private void Move()
     {
-        //_playerRigidbody.MovePosition(_playerTransform.right * movementSettings.speed);
         _playerTransform.Translate(_playerTransform.right * movementSettings.speed);
     }
 
     private void Jump()
     {
-        if (inputVars.jump && movement.grounded)
+        // JumpCheck
+        if (inputVars.jump && movement is { grounded: true, jumping: false })
         {
             movement.jumpPositionHeight = _playerTransform.transform.position.y;
             movement.jumpTimer = 0f;
             movement.jumping = true;
+            Debug.Log($"Start: {transform.position.ToString()}");
         }
 
+        // Handle Jump
         if (movement.jumping)
         {
-            if (movement is { grounded: true, jumpTimer: > 0.1f})
+            if (movement is { grounded: true, jumpTimer: > 0.1f })
             {
                 movement.jumping = false;
+                Debug.Log($"End: {transform.position.ToString()}");
+                return;
             }
-            else
+
+            float newHeight = movement.jumpPositionHeight + movementSettings.jumpSpeed * movement.jumpTimer -
+                              (movementSettings.gravityAccel / 2.0f * Mathf.Pow(movement.jumpTimer, 2.0f));
+            _playerTransform.transform.position =
+                new Vector3(transform.position.x, newHeight, transform.position.z);
+            movement.jumpTimer += Time.deltaTime;
+        }
+
+        if (movement is { grounded: false, jumping: false, falling: false })
+        {
+            movement.jumpPositionHeight = _playerTransform.transform.position.y;
+            movement.jumpTimer = 0f;
+            movement.falling = true;
+        }
+
+        // Handle Falling
+        if (movement.falling)
+        {
+            if (movement is { grounded: true })
             {
-                /**
-                float upVelocity = movementSettings.jumpSpeed * movement.jumpTimer;
-                float downVelocity = movementSettings.gravityAccel / 2 * Mathf.Pow(movement.jumpTimer, 2.0f);
-                if (upVelocity < downVelocity)
-                {
-                    downVelocity = movementSettings.gravityAccel + movementSettings.downAccel / 2 * Mathf.Pow(movement.jumpTimer, 2.0f);
-                }
-                
-                */
-                float newHeight = movement.jumpPositionHeight + movementSettings.jumpSpeed * movement.jumpTimer - (movementSettings.gravityAccel / 2 * Mathf.Pow(movement.jumpTimer, 2.0f));
-                _playerTransform.transform.position =
-                    new Vector3(transform.position.x, newHeight, transform.position.z);
-                movement.jumpTimer += Time.deltaTime;
+                movement.falling = false;
+                return;
             }
+
+            float newHeight = movement.jumpPositionHeight -
+                              (movementSettings.gravityAccel / 2.0f * Mathf.Pow(movement.jumpTimer, 2.0f));
+            _playerTransform.transform.position =
+                new Vector3(transform.position.x, newHeight, transform.position.z);
+            movement.jumpTimer += Time.deltaTime;
         }
     }
 
     private void Grounded()
     {
-        movement.grounded = Physics2D.Raycast(_playerTransform.position, _playerTransform.up * (-1),
+        var hit = Physics2D.Raycast(_playerTransform.position, _playerTransform.up * (-1),
             movementSettings.groundedDistance);
+        if (hit.collider != null)
+        {
+            _playerTransform.position = new Vector3(_playerTransform.position.x,
+                hit.point.y + _playerTransform.localScale.y,
+                _playerTransform.position.z);
+            movement.grounded = true;
+            return;
+        }
+
+        movement.grounded = false;
     }
 
-    private void Gravity()
+    private void Ceilinged()
     {
-        if (!movement.grounded)
+        if (Physics2D.Raycast(_playerTransform.position, _playerTransform.up,
+                movementSettings.groundedDistance))
         {
+            movement.jumping = false;
         }
     }
+    
 }
