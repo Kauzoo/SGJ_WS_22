@@ -91,7 +91,8 @@ public class PlayerBehaviour : MonoBehaviour
         //GetInput();
         Grounded();
         Ceilinged();
-        Move();
+        //Move();
+        //OtherMove();
         Jump();
     }
 

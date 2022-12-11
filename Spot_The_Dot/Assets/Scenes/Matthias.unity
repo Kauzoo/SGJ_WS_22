@@ -1909,10 +1909,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335098969}
     m_Modifications:
-    - target: {fileID: -2298149906981853700, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
-      propertyPath: toggleAlwaysRay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4417054662992382032, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
       propertyPath: m_Name
       value: 1x1Platform
@@ -6321,10 +6317,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335098969}
     m_Modifications:
-    - target: {fileID: -2298149906981853700, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
-      propertyPath: toggleAlwaysRay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4417054662992382032, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
       propertyPath: m_Name
       value: 1x1Platform (2)
@@ -8679,10 +8671,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335098969}
     m_Modifications:
-    - target: {fileID: -2298149906981853700, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
-      propertyPath: toggleAlwaysRay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4417054662992382032, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
       propertyPath: m_Name
       value: 1x1Platform (3)
@@ -9003,10 +8991,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335098969}
     m_Modifications:
-    - target: {fileID: -2298149906981853700, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
-      propertyPath: toggleAlwaysRay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4417054662992382032, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
       propertyPath: m_Name
       value: 1x1Platform (1)
@@ -13346,10 +13330,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 335098969}
     m_Modifications:
-    - target: {fileID: 468257018989800959, guid: 40b4fc74f1aa7e94bbec94db90c4e579, type: 3}
-      propertyPath: toggleAlwaysRay
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 503090455265450116, guid: 40b4fc74f1aa7e94bbec94db90c4e579, type: 3}
       propertyPath: m_Name
       value: 1x2Platform

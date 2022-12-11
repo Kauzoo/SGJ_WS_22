@@ -15,6 +15,12 @@ public class PlatformHelper : MonoBehaviour
     [SerializeField] private int iter;
     [SerializeField] private bool toggleAlwaysRay;
     [SerializeField] private bool toggleSelectedRay;
+    
+    [Header("AltSettings"), SerializeField]
+    private float speedAlt;
+    [SerializeField] private int iterAlt;
+    [SerializeField] private bool toggleAlwaysRayAlt;
+    [SerializeField] private bool toggleSelectedRayAlt;
 
     private Vector3 pos;
     private Vector3 scale;
@@ -35,11 +41,29 @@ public class PlatformHelper : MonoBehaviour
     private Vector2[] ComputeArc(float x, float y, int iterations)
     {
         var step = Time.fixedDeltaTime;
+        //var step = 0.0083f;
         var arr = new Vector2[iterations];
         for (var i = 0; i < iterations; i++)
         {
             var currentTime = step * i;
             arr[i].x = x + i * speed * Time.fixedDeltaTime;
+            //arr[i].x = x + i * speed * step;
+            arr[i].y = ((-1.0f) * gravityAccel * Mathf.Pow(currentTime, 2) / 2.0f) + jumpSpeed * currentTime + y;
+        }
+
+        return arr;
+    }
+    
+    private Vector2[] ComputeAltArc(float x, float y, int iterations)
+    {
+        //var step = Time.fixedDeltaTime;
+        const float step = 0.0083f;
+        var arr = new Vector2[iterations];
+        for (var i = 0; i < iterations; i++)
+        {
+            var currentTime = step * i;
+            //arr[i].x = x + i * speed * Time.fixedDeltaTime;
+            arr[i].x = x + i * speedAlt * step;
             arr[i].y = ((-1.0f) * gravityAccel * Mathf.Pow(currentTime, 2) / 2.0f) + jumpSpeed * currentTime + y;
         }
 
@@ -48,29 +72,52 @@ public class PlatformHelper : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(!toggleAlwaysRay) return;
-        var topRightCorner = pos + (scale / 2);
         /*var bottomRightCorner = new Vector3(pos.x + scale.x, pos.y - scale.y);
         var bottomLeftCorner = pos - scale;
         var topLeftCorner = new Vector3(pos.x - scale.x, pos.y + scale.y);*/
-
-        Gizmos.color = Color.red;
-        var points = ComputeArc(topRightCorner.x, topRightCorner.y, iter);
-        for (var i = 0; i < points.Length - 1; i++)
+        var topRightCorner = pos + (scale / 2);
+        if (toggleAlwaysRay)
         {
-            Gizmos.DrawLine(points[i], points[i+1]);
+            Gizmos.color = Color.red;
+            var points = ComputeArc(topRightCorner.x, topRightCorner.y, iter);
+            for (var i = 0; i < points.Length - 1; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i+1]);
+            }
+        }
+
+        if (toggleAlwaysRayAlt)
+        {
+            Gizmos.color = Color.green;
+            var points = ComputeAltArc(topRightCorner.x, topRightCorner.y, iterAlt);
+            for (var i = 0; i < points.Length - 1; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i+1]);
+            }
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        if(!toggleSelectedRay) return;
         var topRightCorner = pos + (scale / 2);
-        Gizmos.color = Color.red;
-        var points = ComputeArc(topRightCorner.x, topRightCorner.y, iter);
-        for (var i = 0; i < points.Length - 1; i++)
+        if (toggleSelectedRay)
         {
-            Gizmos.DrawLine(points[i], points[i+1]);
+            Gizmos.color = Color.red;
+            var points = ComputeArc(topRightCorner.x, topRightCorner.y, iter);
+            for (var i = 0; i < points.Length - 1; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i+1]);
+            }
+        }
+
+        if (toggleAlwaysRayAlt)
+        {
+            Gizmos.color = Color.green;
+            var points = ComputeAltArc(topRightCorner.x, topRightCorner.y, iterAlt);
+            for (var i = 0; i < points.Length - 1; i++)
+            {
+                Gizmos.DrawLine(points[i], points[i+1]);
+            }
         }
     }
     

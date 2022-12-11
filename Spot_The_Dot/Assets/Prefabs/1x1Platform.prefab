@@ -186,6 +186,10 @@ MonoBehaviour:
   gravityAccel: 56
   jumpSpeed: 16
   speed: 7
-  iter: 40
+  iter: 120
   toggleAlwaysRay: 0
   toggleSelectedRay: 1
+  speedAlt: 7
+  iterAlt: 140
+  toggleAlwaysRayAlt: 0
+  toggleSelectedRayAlt: 0
