@@ -19,6 +19,7 @@ public class PlayerBehaviour : MonoBehaviour
     // Debug
     private float timeDiff = 0f;
     private bool isDead;
+    [SerializeReference] private float checkpointCoordinate = 0f;
 
 
     [System.Serializable]
@@ -88,6 +89,26 @@ public class PlayerBehaviour : MonoBehaviour
         Move();
         Jump();
         Ceilinged();*/
+        CheckPoint();
+    }
+
+    private void CheckPoint()
+    {
+        if (world.position.x < -597)
+        {
+            checkpointCoordinate = -599;
+        } else
+        if (world.position.x < -451)
+        {
+            checkpointCoordinate = -453;
+        } else
+        if (world.position.x < -313)
+        {
+            checkpointCoordinate = -315;
+        } else 
+        if (world.position.x < -166) {
+            checkpointCoordinate = -168;
+        }
     }
 
     private void FixedUpdate()
@@ -215,7 +236,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         if (col.tag.Equals("Checkpoint"))
         {
-            _currentCheckPoint = col.gameObject;
+            //_currentCheckPoint = col.gameObject;
         }
     }
 
@@ -229,7 +250,7 @@ public class PlayerBehaviour : MonoBehaviour
     private IEnumerator WaitForEaster()
     {
         yield return new WaitForSecondsRealtime(2.3f);
-        world.position = _currentCheckPoint.transform.position;
+        world.position = -_currentCheckPoint.transform.position + new Vector3(checkpointCoordinate, -6, 0);
         animator.SetBool("ded", false);
         isDead = false;
     }
@@ -238,7 +259,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.B))
         {
-            world.position = _currentCheckPoint.transform.position;
+            world.position = -_currentCheckPoint.transform.position + new Vector3 (checkpointCoordinate, -6,0);
         }
     }
 
