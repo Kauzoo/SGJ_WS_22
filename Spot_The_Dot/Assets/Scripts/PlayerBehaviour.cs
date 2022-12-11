@@ -12,7 +12,9 @@ public class PlayerBehaviour : MonoBehaviour
     private Transform _playerTransform;
     private Rigidbody2D _playerRigidbody;
     private GameObject _currentCheckPoint;
-    
+    [SerializeReference] private GameObject backgroundPrefab;
+    [SerializeReference] private Transform world;
+
     // Debug
     private float timeDiff = 0f;
 
@@ -44,15 +46,19 @@ public class PlayerBehaviour : MonoBehaviour
         public bool falling;
         public float jumpTimer;
         public float jumpPositionHeight;
+        public float distanceTraveled;
+        public int distIteration;
     }
 
     [SerializeField] private InputVars inputVars;
     [SerializeField] private MovementSettings movementSettings;
     [SerializeField] private Movement movement;
 
+    
     // Start is called before the first frame update
     void Start()
     {
+        
         _playerTransform = transform;
         _playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
 
@@ -60,6 +66,10 @@ public class PlayerBehaviour : MonoBehaviour
         _playerRigidbody.freezeRotation = true;
 
         _currentCheckPoint = GameObject.Find("Start");
+
+        movement.distanceTraveled = 0.0f;
+        
+        Application.targetFrameRate = 120;
     }
 
     // Update is called once per frame
@@ -67,10 +77,13 @@ public class PlayerBehaviour : MonoBehaviour
     {
         GetInput();
         tempBackToStart();
-        /*GetInput();
-        Grounded();
+        //ScrollBackground();
+        GetInput();
+        OtherMove();
+        /*Grounded();
         Move();
-        Jump();*/
+        Jump();
+        Ceilinged();*/
     }
 
     private void FixedUpdate()
@@ -78,7 +91,8 @@ public class PlayerBehaviour : MonoBehaviour
         //GetInput();
         Grounded();
         Ceilinged();
-        Move();
+        //Move();
+        //OtherMove();
         Jump();
     }
 
@@ -89,12 +103,17 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void Move()
     {
-        _playerTransform.Translate(_playerTransform.right * (movementSettings.speed * Time.fixedDeltaTime));
+        //world.Translate(Vector3.left * (movementSettings.speed * Time.fixedDeltaTime));
+        //_playerTransform.Translate(_playerTransform.right * (movementSettings.speed * Time.fixedDeltaTime));
+    }
+
+    private void OtherMove()
+    {
+        world.Translate(Vector3.left * (movementSettings.speed * Time.deltaTime));
     }
 
     private void Jump()
     {
-        
         // JumpCheck
         if (inputVars.jump && movement is { grounded: true, jumping: false })
         {
@@ -172,27 +191,38 @@ public class PlayerBehaviour : MonoBehaviour
             movement.jumping = false;
         }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag.Equals("Hurtbox"))
         {
-            transform.position = _currentCheckPoint.transform.position - new Vector3 (0,-3,0);
+            //transform.position = _currentCheckPoint.transform.position - new Vector3(0, -3, 0);
+            world.position = _currentCheckPoint.transform.position + new Vector3(0, -3, 0);
             return;
         }
+
         if (col.tag.Equals("Checkpoint"))
         {
             _currentCheckPoint = col.gameObject;
         }
-
     }
 
     private void tempBackToStart()
     {
         if (Input.GetKey(KeyCode.B))
         {
-            transform.position =  _currentCheckPoint.transform.position;
+            world.position = _currentCheckPoint.transform.position;
         }
     }
 
+    private void ScrollBackground()
+    {
+        movement.distanceTraveled += (movementSettings.speed * Time.fixedDeltaTime);
+        if (movement.distanceTraveled >= 57.6f)
+        {
+            movement.distIteration++;
+            movement.distanceTraveled = 0f;
+            Instantiate(backgroundPrefab, new Vector3(movement.distIteration * 57.6f, 0f, 0f), Quaternion.identity);
+        }
+    }
 }

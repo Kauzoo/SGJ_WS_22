@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,23 @@ public class CameraController : MonoBehaviour
                 StartCoroutine(AdjustCameraHeight(CamMoveDir.Down));
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
+        /*_playerPos = _player.transform.position;
+        transform.position = new Vector3(_playerPos.x - _screenWorldPos.x, transform.position.y,transform.position.z);
+        float vertViewportPos = _cam.WorldToViewportPoint(_playerPos).y;
+        if (!_coroutineRunning)
+        {
+            if (vertViewportPos >= 1 - screenEdgeDistance)
+            {
+                StartCoroutine(AdjustCameraHeight(CamMoveDir.Up));
+            } else if (vertViewportPos <= 0 + screenEdgeDistance)
+            {
+                StartCoroutine(AdjustCameraHeight(CamMoveDir.Down));
+            }
+        }*/
     }
 
     private IEnumerator AdjustCameraHeight(CamMoveDir camDir)

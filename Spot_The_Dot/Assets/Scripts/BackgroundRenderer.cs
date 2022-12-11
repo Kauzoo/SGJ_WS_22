@@ -19,9 +19,9 @@ public class BackgroundRenderer : MonoBehaviour
 
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        /*_spriteRenderer = GetComponent<SpriteRenderer>();
         if (_spriteRenderer == null)
-            Debug.LogError($"Missing {nameof(SpriteRenderer)} on {gameObject.name}");
+            Debug.LogError($"Missing {nameof(SpriteRenderer)} on {gameObject.name}");*/
     }
 
     // Start is called before the first frame update
