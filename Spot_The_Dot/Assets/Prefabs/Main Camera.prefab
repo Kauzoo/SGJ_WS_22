@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95402b1b96123cf49be05e74a576810f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lerpDuration: 0.1
+  lerpDuration: 0
   screenEdgeDistance: 0.3
