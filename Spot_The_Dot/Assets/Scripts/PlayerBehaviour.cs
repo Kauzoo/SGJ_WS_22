@@ -14,9 +14,11 @@ public class PlayerBehaviour : MonoBehaviour
     private GameObject _currentCheckPoint;
     [SerializeReference] private GameObject backgroundPrefab;
     [SerializeReference] private Transform world;
+    [SerializeReference] public Animator animator;
 
     // Debug
     private float timeDiff = 0f;
+    private bool isDead;
 
 
     [System.Serializable]
@@ -54,11 +56,9 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private MovementSettings movementSettings;
     [SerializeField] private Movement movement;
 
-    
     // Start is called before the first frame update
     void Start()
     {
-        
         _playerTransform = transform;
         _playerRigidbody = gameObject.GetComponent<Rigidbody2D>();
 
@@ -66,15 +66,19 @@ public class PlayerBehaviour : MonoBehaviour
         _playerRigidbody.freezeRotation = true;
 
         _currentCheckPoint = GameObject.Find("Start");
+        world = GameObject.FindWithTag("World").transform;
 
         movement.distanceTraveled = 0.0f;
-        
+
+        isDead = false;
+
         Application.targetFrameRate = 120;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isDead) return;
         GetInput();
         tempBackToStart();
         //ScrollBackground();
@@ -88,6 +92,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(isDead) return;
         //GetInput();
         Grounded();
         Ceilinged();
@@ -122,6 +127,8 @@ public class PlayerBehaviour : MonoBehaviour
             movement.jumping = true;
             //Debug.Log($"Start: {transform.position.ToString()}");
             timeDiff = Time.fixedTime;
+            animator.SetBool("jump", true);
+            animator.SetBool("lnad", false);
         }
 
         // Handle Jump
@@ -133,6 +140,9 @@ public class PlayerBehaviour : MonoBehaviour
                 //Debug.Log($"End: {transform.position.ToString()}");
                 timeDiff = Time.fixedTime - timeDiff;
                 //Debug.Log($"TimeDiff: {timeDiff}");
+                animator.SetBool("lnad", true);
+                animator.SetBool("jump", false);
+
                 return;
             }
 
@@ -174,7 +184,7 @@ public class PlayerBehaviour : MonoBehaviour
         if (hit.collider != null)
         {
             _playerTransform.position = new Vector3(_playerTransform.position.x,
-                hit.point.y + _playerTransform.localScale.y,
+                hit.point.y + _playerTransform.localScale.y - 0.2f,
                 _playerTransform.position.z);
             movement.grounded = true;
             return;
@@ -194,10 +204,12 @@ public class PlayerBehaviour : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D col)
     {
+        if(isDead) return;
         if (col.tag.Equals("Hurtbox"))
         {
             //transform.position = _currentCheckPoint.transform.position - new Vector3(0, -3, 0);
-            world.position = _currentCheckPoint.transform.position + new Vector3(0, -3, 0);
+            //world.position = _currentCheckPoint.transform.position + new Vector3(0, -3, 0);
+            Death();
             return;
         }
 
@@ -205,6 +217,21 @@ public class PlayerBehaviour : MonoBehaviour
         {
             _currentCheckPoint = col.gameObject;
         }
+    }
+
+    private void Death()
+    {
+        isDead = true;
+        animator.SetBool("ded", true);
+        StartCoroutine(WaitForEaster());
+    }
+
+    private IEnumerator WaitForEaster()
+    {
+        yield return new WaitForSecondsRealtime(2.3f);
+        world.position = _currentCheckPoint.transform.position + new Vector3(0, -3, 0);
+        animator.SetBool("ded", false);
+        isDead = false;
     }
 
     private void tempBackToStart()
