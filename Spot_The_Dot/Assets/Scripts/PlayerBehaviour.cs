@@ -229,7 +229,7 @@ public class PlayerBehaviour : MonoBehaviour
     private IEnumerator WaitForEaster()
     {
         yield return new WaitForSecondsRealtime(2.3f);
-        world.position = _currentCheckPoint.transform.position + new Vector3(0, -3, 0);
+        world.position = _currentCheckPoint.transform.position;
         animator.SetBool("ded", false);
         isDead = false;
     }
