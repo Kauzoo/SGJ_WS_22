@@ -1635,7 +1635,7 @@ GameObject:
   - component: {fileID: 271544272}
   m_Layer: 0
   m_Name: World
-  m_TagString: Untagged
+  m_TagString: World
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2738,6 +2738,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9121750442039020922, guid: 2416cbc492153024ab28e5278ae6a779, type: 3}
   m_PrefabInstance: {fileID: 343615966}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &347168618 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3620912648036459178, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
+  m_PrefabInstance: {fileID: 781469081}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &347405929
 PrefabInstance:
@@ -5549,10 +5554,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1989219189455998527, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
-      propertyPath: world
+    - target: {fileID: 688182522857968262, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 688182522857968262, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
+      propertyPath: m_Animations.Array.data[0]
       value: 
-      objectReference: {fileID: 271544272}
+      objectReference: {fileID: 7400000, guid: 0e420cdecea267d4bae4715720220f32, type: 2}
+    - target: {fileID: 1989219189455998527, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 347168618}
     - target: {fileID: 2384403387441323529, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -5563,6 +5576,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2384403387441323529, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
       propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384403387441323529, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2384403387441323529, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
@@ -5608,18 +5625,6 @@ PrefabInstance:
     - target: {fileID: 5707159647390098954, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
       propertyPath: m_Name
       value: SpotTheDot
-      objectReference: {fileID: 0}
-    - target: {fileID: 5707159647390098954, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
-      propertyPath: m_Layer
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5707159647390098954, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6392066990522810507, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
-      propertyPath: m_Radius
-      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8fde388bad8ee84abe1bb58a7038c7f, type: 3}
