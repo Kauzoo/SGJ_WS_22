@@ -187,7 +187,7 @@ MonoBehaviour:
   jumpSpeed: 16
   speed: 7
   iter: 120
-  toggleAlwaysRay: 0
+  toggleAlwaysRay: 1
   toggleSelectedRay: 1
   speedAlt: 7
   iterAlt: 140
